@@ -1,0 +1,14 @@
+{ 
+    "veiculos": [{
+        "Modelo": "Uno",
+        "Marca": "Fiat",
+        "Valor": 45.963,
+        "Obsevações": "Usado, Direção hidráulica, airbag, vidros elétricos"
+    },
+    {
+        "Modelo": "HB20",
+        "Marca": "Hyundai",
+        "Valor": 58.890,
+        "Obsevações": "Direção hidráulica, câmbio automático, vidros elétricos"
+    }]
+}
