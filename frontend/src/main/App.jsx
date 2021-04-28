@@ -4,12 +4,12 @@ import './App.css'
 import React from 'react'
 
 import Nav from '../components/template/Nav'
-import Main from '../components/template/Main'
+import Home from '../components/home/Home'
 import Footer from '../components/template/Footer'
 
 export default props =>
     <div className="app">
         <Nav />
-        <Main icon="home" title="Início"/>
+        <Home />
         <Footer />
     </div>
