@@ -4,13 +4,13 @@
         "Modelo": "Uno",
         "Marca": "Fiat",
         "Valor": 45.963,
-        "Obsevações": "Usado, Direção hidráulica, airbag, vidros elétricos"
+        "Observações": "Usado, Direção hidráulica, airbag, vidros elétricos"
     },
     {
         "id": 2,
         "Modelo": "HB20",
         "Marca": "Hyundai",
         "Valor": 58.890,
-        "Obsevações": "Direção hidráulica, câmbio automático, vidros elétricos"
+        "Observações": "Direção hidráulica, câmbio automático, vidros elétricos"
     }]
 }
