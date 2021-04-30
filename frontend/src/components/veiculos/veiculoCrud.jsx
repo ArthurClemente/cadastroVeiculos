@@ -17,6 +17,12 @@ const initialState = {
 export default class VeiculoCrud extends Component {
     
     state = { ...initialState }
+
+    componentWillMount() {
+        axios(baseUrl).then(resp => {
+            this.setState({ list: resp.data })
+        })
+    }
     
     clear() {
         this.setState({ veiculo: initialState.veiculo })
@@ -28,14 +34,14 @@ export default class VeiculoCrud extends Component {
         const url = veiculo.id ? `${baseUrl}/${veiculo.id}` : baseUrl
         axios[metodo](url, veiculo)
             .then(resp => {
-                const list = this.getUpdatedList(resp.data)
+                const list = this.listaAtualizada(resp.data)
                 this.setState({ veiculo: initialState.veiculo, list })
             })
     }
 
-    getUpdatedList(veiculo) {
+    listaAtualizada(veiculo, add = true) {
         const list = this.state.list.filter(v => v.id !== veiculo.id)
-        list.unshift(veiculo)
+        if(add) list.unshift(veiculo)
         return list
     }
 
@@ -113,11 +119,65 @@ export default class VeiculoCrud extends Component {
             </div>
         )
     }
+
+    load(veiculo) {
+        this.setState({ veiculo })
+    }
+
+    remover(veiculo) {
+        axios.delete(`${baseUrl}/${veiculo.id}`).then(resp => {
+            const list = this.listaAtualizada(veiculo, false)
+            this.setState({ list })
+        })
+    }
+
+    renderTabela() {
+        return (
+            <table className="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Modelo</th>
+                        <th>Marca</th>
+                        <th>Valor</th>
+                        <th>Observações</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.renderLinhas()}
+                </tbody>
+            </table>
+        )
+    }
+
+    renderLinhas() {
+        return this.state.list.map(veiculo => {
+            return (
+                <tr key={veiculo.id}>
+                    <td>{veiculo.Modelo}</td>
+                    <td>{veiculo.Marca}</td>
+                    <td>{veiculo.Valor}</td>
+                    <td>{veiculo.Observações}</td>
+                    <td>
+                        <button className="btn btn-warning"
+                            onClick={() => this.load(veiculo)}>
+                            <i className="fa fa-pencil"></i>
+                        </button>
+                        <button className="btn btn-danger ml-2"
+                            onClick={() => this.remover(veiculo)}>
+                            <i className="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            )
+        })
+    }
     
     render() {
         return (
             <Main {...headerProps}>
                 {this.renderForm()}
+                {this.renderTabela()}
             </Main>
         )
     }
